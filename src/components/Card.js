@@ -1,0 +1,20 @@
+export function Card(props) {
+
+  function handleClick() {
+    props.onCardClick(props.card);
+  };
+
+  return (
+    <div className="element">
+    <button type="button" className="element__trash" aria-label="Удалить карточку"></button>
+    <img src={props.card.link} onClick={handleClick} alt="" className="element__img" />
+    <div className="element__info">
+      <h2 className="element__title">{props.card.name}</h2>
+      <div className="element__likes">
+        <button type="button" className="element__button" aria-label="Мне нравится"></button>
+        <span className="element__like">{props.card.likes.length}</span>
+      </div>
+    </div>
+  </div>
+  );
+}
