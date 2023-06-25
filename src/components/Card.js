@@ -7,7 +7,7 @@ export function Card(props) {
   return (
     <div className="element">
     <button type="button" className="element__trash" aria-label="Удалить карточку"></button>
-    <img src={props.card.link} onClick={handleClick} alt="" className="element__img" />
+    <img src={props.card.link} onClick={handleClick} alt={props.card.name} className="element__img" />
     <div className="element__info">
       <h2 className="element__title">{props.card.name}</h2>
       <div className="element__likes">

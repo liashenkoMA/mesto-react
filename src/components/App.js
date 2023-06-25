@@ -42,7 +42,7 @@ function App() {
         <Header />
         <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
         <Footer />
-        <PopupWithForm name="edit-profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen ? 'popup_opened' : ''} onClose={closeAllPopups}>
+        <PopupWithForm name="edit-profile" title="Редактировать профиль" buttonText="Сохранить изменения" isOpen={isEditProfilePopupOpen ? 'popup_opened' : ''} onClose={closeAllPopups}>
           <label className="popup__form-field">
             <input type="text" placeholder="Введите имя" id="name" className="popup__input popup__input_type_title"
               name="myName" required minLength="2" maxLength="40" />
@@ -54,9 +54,8 @@ function App() {
               maxLength="200" />
             <span className="popup__input-error about-error"></span>
           </label>
-          <button type="submit" className="popup__button" aria-label="Сохранить изменения">Сохранить</button>
         </PopupWithForm>
-        <PopupWithForm name="add-element" title="Новое место" isOpen={isAddPlacePopupOpen ? 'popup_opened' : ''} onClose={closeAllPopups}>
+        <PopupWithForm name="add-element" title="Новое место" buttonText="Сохранить карточку" isOpen={isAddPlacePopupOpen ? 'popup_opened' : ''} onClose={closeAllPopups}>
           <label className="popup__form-field">
             <input type="text" placeholder="Название" id="input-place-name"
               className="popup__input popup__input_type_place-name" name="placeName" required minLength="2" maxLength="30" />
@@ -67,19 +66,15 @@ function App() {
               className="popup__input popup__input_type_image-link" name="placeImg" required />
             <span className="popup__input-error input-image-link-error"></span>
           </label>
-          <button type="submit" className="popup__button" aria-label="Сохранить карточку">Сохранить</button>
         </PopupWithForm>
-        <PopupWithForm name="edit-avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen ? 'popup_opened' : ''} onClose={closeAllPopups}>
+        <PopupWithForm name="edit-avatar" title="Обновить аватар" buttonText="Сохранить аватарку" isOpen={isEditAvatarPopupOpen ? 'popup_opened' : ''} onClose={closeAllPopups}>
           <label className="popup__form-field">
             <input type="url" placeholder="Ссылка на аватарку" id="input-avatar-link"
               className="popup__input popup__input_type_avatar-link" name="avatarLink" required />
             <span className="popup__input-error input-avatar-link-error"></span>
           </label>
-          <button type="submit" className="popup__button" aria-label="Сохранить аватарку">Сохранить</button>
         </PopupWithForm>
-        <PopupWithForm name="delete-element" title="Вы уверены?">
-          <button type="submit" className="popup__button-delete" aria-label="Удалить карточку">Да</button>
-        </PopupWithForm>
+        <PopupWithForm name="delete-element" buttonText="Удалить карточку" title="Вы уверены?" />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
       </div>
