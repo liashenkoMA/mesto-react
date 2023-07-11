@@ -17,16 +17,16 @@ function App() {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState();
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
-  const [currentUser, setCurrentUser] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState({});
   const [currentCards, setCurrentCards] = React.useState([]);
 
   React.useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then((res) => {
-        setCurrentUser(res[0]);
-        setCurrentCards(res[1]);
+      .then(([user, cards]) => {
+        setCurrentUser(user);
+        setCurrentCards(cards.reverse());
       })
       .catch((err) => {
         console.log(err);
@@ -49,7 +49,7 @@ function App() {
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
-    setSelectedCard();
+    setSelectedCard(null);
   };
 
   function handleCardClick(card) {
@@ -88,33 +88,36 @@ function App() {
       })
   };
 
-  function handleUpdateUser(user) {
+  function handleUpdateUser(user, element) {
     api.patchUserInfo(user.name, user.about)
       .then((state) => {
         setCurrentUser(state);
         closeAllPopups();
+        element.target.reset();
       })
       .catch((err) => {
         console.log(err)
       })
   };
 
-  function handleUpdateAvatar(avatar) {
+  function handleUpdateAvatar(avatar, element) {
     api.patchAvatar(avatar.avatar)
       .then((state) => {
         setCurrentUser(state);
         closeAllPopups();
+        element.target.reset();
       })
       .catch((err) => {
         console.log(err)
       })
   };
 
-  function handleAddPlaceSubmit(card) {
+  function handleAddPlaceSubmit(card, element) {
     api.postNewCard(card.name, card.link)
       .then((newCard) => {
         setCurrentCards([newCard, ...currentCards]);
         closeAllPopups();
+        element.target.reset();
       })
       .catch((err) => {
         console.log(err)

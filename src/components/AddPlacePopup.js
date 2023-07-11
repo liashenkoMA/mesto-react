@@ -1,6 +1,5 @@
 import React from "react";
 import { PopupWithForm } from "./PopupWithForm";
-import { CurrentCardsContext } from "../contexts/CurrentCardsContext";
 
 export function AddPlacePopup(props) {
 
@@ -15,14 +14,21 @@ export function AddPlacePopup(props) {
     setLink(e.target.value)
   };
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(element) {
+    element.preventDefault();
 
     props.onUpdateCard({
       name,
       link: link,
-    });
+    }, element);
   };
+
+  React.useEffect(() => {
+    if (props.isOpen === false) {
+      setName('')
+      setLink('')
+    }
+  }, [props.isOpen])
 
   return (
     <PopupWithForm name="add-element" title="Новое место" buttonText="Сохранить карточку" isOpen={props.isOpen ? 'popup_opened' : ''} onClose={props.onClose} onSubmit={handleSubmit}>

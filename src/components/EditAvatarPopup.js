@@ -5,12 +5,12 @@ export function EditAvatarPopup(props) {
 
   const avatarRef = React.useRef();
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(element) {
+    element.preventDefault();
 
     props.onUpdateAvatar({
       avatar: avatarRef.current.value,
-    });  
+    }, element);  
   };
 
   return (
